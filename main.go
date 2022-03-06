@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 
+	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
@@ -31,6 +33,12 @@ func main() {
 		)),
 		&gorm.Config{},
 	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	router := mux.NewRouter()
+
+	err = http.ListenAndServe(fmt.Sprintf("%s:%s", cfg.Server.Host, cfg.Server.Port), router)
 	if err != nil {
 		log.Fatal(err)
 	}

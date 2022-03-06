@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/BurntSushi/toml v1.0.0 // indirect
+	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/ilyakaznacheev/cleanenv v1.2.6 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.10.1 // indirect
