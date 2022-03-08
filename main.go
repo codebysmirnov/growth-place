@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/zerolog"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
@@ -40,8 +42,9 @@ func main() {
 		log.Fatal(err)
 	}
 
+	logger := zerolog.New(os.Stderr).With().Timestamp().Logger()
 	userRepo := repository.NewUserRepo(db)
-	userService := user.NewUserService(userRepo)
+	userService := user.NewUserService(userRepo, logger)
 	userHandlers := handlers.NewUserHandlers(userService)
 
 	router := mux.NewRouter()
