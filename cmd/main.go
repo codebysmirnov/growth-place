@@ -50,6 +50,7 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/user", userHandlers.UserCreate).Methods(http.MethodPost)
+	router.HandleFunc("/user/password", userHandlers.UserPasswordEdit).Methods(http.MethodPost)
 
 	err = http.ListenAndServe(fmt.Sprintf("%s:%s", cfg.Server.Host, cfg.Server.Port), router)
 	if err != nil {

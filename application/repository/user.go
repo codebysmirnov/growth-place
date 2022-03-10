@@ -1,6 +1,9 @@
 package repository
 
 import (
+	"errors"
+
+	"github.com/google/uuid"
 	"github.com/jackc/pgconn"
 	"gorm.io/gorm"
 
@@ -31,6 +34,31 @@ func (r UserRepo) Create(user domain.User) error {
 		case "users__phone_uniq_idx":
 			return ErrUserWithPassedPhoneIsExists
 		}
+	}
+	return nil
+}
+
+// Read get user by id
+func (r UserRepo) Read(id uuid.UUID) (domain.User, error) {
+	var user domain.User
+	err := r.db.Model(user).Where("id=?", id).Take(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return domain.User{}, ErrUserNotFound
+		}
+		return domain.User{}, err
+	}
+	return user, nil
+}
+
+// Update modify users record (non-zero fields)
+func (r UserRepo) Update(user domain.User) error {
+	err := r.db.Updates(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return ErrUserNotFound
+		}
+		return err
 	}
 	return nil
 }

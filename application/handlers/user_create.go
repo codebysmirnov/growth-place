@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 
 	"growth-place/libs/liberror"
@@ -20,7 +19,8 @@ type UserCreateArgs struct {
 func (h UserHandler) UserCreate(w http.ResponseWriter, r *http.Request) {
 	var args UserCreateArgs
 	if err := json.NewDecoder(r.Body).Decode(&args); err != nil {
-		log.Fatal(err)
+		liberror.JSONError(w, ErrUnmarshal)
+		return
 	}
 
 	err := h.userService.Create(args.Login, args.Name, args.Email, args.Phone)
