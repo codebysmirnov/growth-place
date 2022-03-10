@@ -44,13 +44,14 @@ func main() {
 
 	logger := zerolog.New(os.Stderr).With().Timestamp().Logger()
 	userRepo := repository.NewUserRepo(db)
-	userService := user.NewUserService(userRepo, logger)
+	userService := user.NewUserService(userRepo, logger, cfg.JWT.Secret)
 	userHandlers := handlers.NewUserHandlers(userService)
 
 	router := mux.NewRouter()
 
 	router.HandleFunc("/user", userHandlers.UserCreate).Methods(http.MethodPost)
 	router.HandleFunc("/user/password", userHandlers.UserPasswordEdit).Methods(http.MethodPost)
+	router.HandleFunc("/user/authorization", userHandlers.UserAuthorization).Methods(http.MethodPost)
 
 	err = http.ListenAndServe(fmt.Sprintf("%s:%s", cfg.Server.Host, cfg.Server.Port), router)
 	if err != nil {

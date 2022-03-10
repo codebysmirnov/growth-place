@@ -51,6 +51,19 @@ func (r UserRepo) Read(id uuid.UUID) (domain.User, error) {
 	return user, nil
 }
 
+// ReadByMail get user by passed email
+func (r UserRepo) ReadByMail(email string) (domain.User, error) {
+	var user domain.User
+	err := r.db.Model(user).Where("email=?", email).Take(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return domain.User{}, ErrUserNotFound
+		}
+		return domain.User{}, err
+	}
+	return user, nil
+}
+
 // Update modify users record (non-zero fields)
 func (r UserRepo) Update(user domain.User) error {
 	err := r.db.Updates(&user).Error

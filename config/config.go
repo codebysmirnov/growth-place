@@ -7,6 +7,7 @@ import "github.com/ilyakaznacheev/cleanenv"
 type Config struct {
 	Database Database
 	Server   Server
+	JWT      JWT
 }
 
 // Validate checks the correctness of the configurations.
@@ -17,6 +18,10 @@ func (c Config) Validate() error {
 	if err := c.Database.Validate(); err != nil {
 		return err
 	}
+	if err := c.JWT.Validate(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
