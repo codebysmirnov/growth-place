@@ -9,7 +9,7 @@ require (
 	github.com/ilyakaznacheev/cleanenv v1.2.6
 	github.com/jackc/pgconn v1.10.1
 	github.com/rs/zerolog v1.26.1
-	golang.org/x/crypto v0.0.0-20211215165025-cf75a172585e
+	golang.org/x/crypto v0.0.0-20220307211146-efcb8507fb70
 	gorm.io/driver/postgres v1.3.1
 	gorm.io/gorm v1.23.2
 )
@@ -26,6 +26,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
+	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect

@@ -7,7 +7,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 
 	"growth-place/application/domain"
-	"growth-place/application/helpers"
+	"growth-place/application/helpers/hashpassword"
 )
 
 // AuthorizationView user auth response structure
@@ -29,8 +29,13 @@ func (s UserService) Authorization(email, password string) (AuthorizationView, e
 		return AuthorizationView{}, err
 	}
 
-	if ok := helpers.CheckPasswordHash(password, *user.Password); !ok {
-		logger.Error().Err(err).Msg(fmt.Sprintf("wrong password (user ID:%s)", user.ID))
+	ok, err := hashpassword.ComparePasswordAndHash(password, *user.Password)
+	if err != nil {
+		logger.Error().Err(err).Msg("error on hashpassword.ComparePasswordAndHash()")
+		return AuthorizationView{}, err
+	}
+	if !ok {
+		logger.Error().Msg(fmt.Sprintf("wrong password (user ID:%s)", user.ID))
 		return AuthorizationView{}, ErrWrongPassword
 	}
 
