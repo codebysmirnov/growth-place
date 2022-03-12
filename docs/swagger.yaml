@@ -13,6 +13,15 @@ definitions:
         example: some_password
         type: string
     type: object
+  handlers.UserAuthorizationResponse:
+    properties:
+      expired_at:
+        description: token deadline date time
+        type: integer
+      token:
+        description: access token string
+        type: string
+    type: object
   handlers.UserCreateArgs:
     properties:
       email:
@@ -43,15 +52,6 @@ definitions:
       code:
         type: string
       message:
-        type: string
-    type: object
-  user.AuthorizationView:
-    properties:
-      expired_at:
-        description: token deadline date time
-        type: integer
-      token:
-        description: access token string
         type: string
     type: object
 info:
@@ -114,7 +114,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/user.AuthorizationView'
+            $ref: '#/definitions/handlers.UserAuthorizationResponse'
         "400":
           description: Bad Request
           schema:

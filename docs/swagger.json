@@ -91,7 +91,7 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/user.AuthorizationView"
+                            "$ref": "#/definitions/handlers.UserAuthorizationResponse"
                         }
                     },
                     "400": {
@@ -187,6 +187,19 @@
                 }
             }
         },
+        "handlers.UserAuthorizationResponse": {
+            "type": "object",
+            "properties": {
+                "expired_at": {
+                    "description": "token deadline date time",
+                    "type": "integer"
+                },
+                "token": {
+                    "description": "access token string",
+                    "type": "string"
+                }
+            }
+        },
         "handlers.UserCreateArgs": {
             "type": "object",
             "properties": {
@@ -228,19 +241,6 @@
                     "type": "string"
                 },
                 "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "user.AuthorizationView": {
-            "type": "object",
-            "properties": {
-                "expired_at": {
-                    "description": "token deadline date time",
-                    "type": "integer"
-                },
-                "token": {
-                    "description": "access token string",
                     "type": "string"
                 }
             }

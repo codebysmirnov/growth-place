@@ -99,7 +99,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/user.AuthorizationView"
+                            "$ref": "#/definitions/handlers.UserAuthorizationResponse"
                         }
                     },
                     "400": {
@@ -195,6 +195,19 @@ const docTemplate = `{
                 }
             }
         },
+        "handlers.UserAuthorizationResponse": {
+            "type": "object",
+            "properties": {
+                "expired_at": {
+                    "description": "token deadline date time",
+                    "type": "integer"
+                },
+                "token": {
+                    "description": "access token string",
+                    "type": "string"
+                }
+            }
+        },
         "handlers.UserCreateArgs": {
             "type": "object",
             "properties": {
@@ -236,19 +249,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "user.AuthorizationView": {
-            "type": "object",
-            "properties": {
-                "expired_at": {
-                    "description": "token deadline date time",
-                    "type": "integer"
-                },
-                "token": {
-                    "description": "access token string",
                     "type": "string"
                 }
             }

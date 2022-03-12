@@ -40,7 +40,19 @@ func (h UserHandler) UserCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(struct{}{})
+	err = h.encodeUserCreateResponse(w)
+	if err != nil {
+		liberror.JSONError(w, err)
+		return
+	}
+
 	return
+}
+
+// encodeUserCreateResponse encode user create response to NoContentResponse
+func (h UserHandler) encodeUserCreateResponse(
+	w http.ResponseWriter,
+) error {
+	w.WriteHeader(http.StatusCreated)
+	return json.NewEncoder(w).Encode(NoContentResponse{})
 }

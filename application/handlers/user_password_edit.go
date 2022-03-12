@@ -40,7 +40,19 @@ func (h UserHandler) UserPasswordEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(struct{}{})
+	err = h.encodeUserPasswordEditResponse(w)
+	if err != nil {
+		liberror.JSONError(w, err)
+		return
+	}
+
 	return
+}
+
+// encodeUserPasswordEditResponse encode user password edit response to NoContentResponse
+func (h UserHandler) encodeUserPasswordEditResponse(
+	w http.ResponseWriter,
+) error {
+	w.WriteHeader(http.StatusOK)
+	return json.NewEncoder(w).Encode(NoContentResponse{})
 }
