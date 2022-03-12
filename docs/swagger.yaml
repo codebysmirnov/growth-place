@@ -1,0 +1,167 @@
+basePath: /
+definitions:
+  handlers.NoContentResponse:
+    type: object
+  handlers.UserAuthorizationArgs:
+    properties:
+      email:
+        description: email
+        example: some@mail.com
+        type: string
+      password:
+        description: password
+        example: some_password
+        type: string
+    type: object
+  handlers.UserCreateArgs:
+    properties:
+      email:
+        description: email
+        example: some@email.com
+        type: string
+      name:
+        description: name
+        example: some name
+        type: string
+      phone:
+        description: phone
+        type: string
+    type: object
+  handlers.UserPasswordEditArgs:
+    properties:
+      id:
+        description: user identifier
+        example: 8cef2e64-fe20-4259-8295-cb907f43cc0a
+        type: string
+      password:
+        description: new password
+        example: some_password
+        type: string
+    type: object
+  liberror.Error:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  user.AuthorizationView:
+    properties:
+      expired_at:
+        description: token deadline date time
+        type: integer
+      token:
+        description: access token string
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a growth service for managing personal targets
+  license:
+    name: MIT
+  title: Growth-place API
+  version: "1.0"
+paths:
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: create new user on system
+      parameters:
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UserCreateArgs'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.NoContentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/liberror.Error'
+      summary: new user
+      tags:
+      - users
+  /user/authorization:
+    post:
+      consumes:
+      - application/json
+      description: authorization user on system by email and password
+      parameters:
+      - description: User auth data
+        in: body
+        name: authorization
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UserAuthorizationArgs'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/user.AuthorizationView'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/liberror.Error'
+      summary: authorization
+      tags:
+      - users
+  /user/password:
+    post:
+      consumes:
+      - application/json
+      description: 'edit user password: add new or replace old password'
+      parameters:
+      - description: New password
+        in: body
+        name: password
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UserPasswordEditArgs'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.NoContentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/liberror.Error'
+      summary: edit password
+      tags:
+      - users
+swagger: "2.0"

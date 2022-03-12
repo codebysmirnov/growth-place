@@ -1,0 +1,249 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a growth service for managing personal targets",
+        "title": "Growth-place API",
+        "contact": {},
+        "license": {
+            "name": "MIT"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/user": {
+            "post": {
+                "description": "create new user on system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "new user",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.UserCreateArgs"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.NoContentResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/authorization": {
+            "post": {
+                "description": "authorization user on system by email and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "authorization",
+                "parameters": [
+                    {
+                        "description": "User auth data",
+                        "name": "authorization",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.UserAuthorizationArgs"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/user.AuthorizationView"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/password": {
+            "post": {
+                "description": "edit user password: add new or replace old password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "edit password",
+                "parameters": [
+                    {
+                        "description": "New password",
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.UserPasswordEditArgs"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.NoContentResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.NoContentResponse": {
+            "type": "object"
+        },
+        "handlers.UserAuthorizationArgs": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "description": "email",
+                    "type": "string",
+                    "example": "some@mail.com"
+                },
+                "password": {
+                    "description": "password",
+                    "type": "string",
+                    "example": "some_password"
+                }
+            }
+        },
+        "handlers.UserCreateArgs": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "description": "email",
+                    "type": "string",
+                    "example": "some@email.com"
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string",
+                    "example": "some name"
+                },
+                "phone": {
+                    "description": "phone",
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.UserPasswordEditArgs": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "user identifier",
+                    "type": "string",
+                    "example": "8cef2e64-fe20-4259-8295-cb907f43cc0a"
+                },
+                "password": {
+                    "description": "new password",
+                    "type": "string",
+                    "example": "some_password"
+                }
+            }
+        },
+        "liberror.Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.AuthorizationView": {
+            "type": "object",
+            "properties": {
+                "expired_at": {
+                    "description": "token deadline date time",
+                    "type": "integer"
+                },
+                "token": {
+                    "description": "access token string",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

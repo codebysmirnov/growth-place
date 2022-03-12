@@ -11,11 +11,22 @@ import (
 
 // UserPasswordEditArgs presents user password edit request arguments
 type UserPasswordEditArgs struct {
-	ID       uuid.UUID `json:"id"`       // user identifier
-	Password string    `json:"password"` // new password
+	ID       uuid.UUID `json:"id" example:"8cef2e64-fe20-4259-8295-cb907f43cc0a"` // user identifier
+	Password string    `json:"password" example:"some_password"`                  // new password
 }
 
 // UserPasswordEdit user password edit method
+// @Summary edit password
+// @Description edit user password: add new or replace old password
+// @Tags users
+// @Accept  json
+// @Produce  json
+// @Param password body UserPasswordEditArgs true "New password"
+// @Success 201 {object} NoContentResponse
+// @Failure 400 {object} liberror.Error
+// @Failure 404 {object} liberror.Error
+// @Failure 500 {object} liberror.Error
+// @Router /user/password [POST]
 func (h UserHandler) UserPasswordEdit(w http.ResponseWriter, r *http.Request) {
 	var args UserPasswordEditArgs
 	if err := json.NewDecoder(r.Body).Decode(&args); err != nil {

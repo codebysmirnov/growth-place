@@ -8,8 +8,11 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rs/zerolog"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	_ "growth-place/docs"
 
 	"growth-place/application/handlers"
 	"growth-place/application/repository"
@@ -17,6 +20,11 @@ import (
 	"growth-place/config"
 )
 
+// @title Growth-place API
+// @version 1.0
+// @description This is a growth service for managing personal targets
+// @license.name MIT
+// @BasePath /
 func main() {
 	cfg, err := config.LoadConfig()
 	if err != nil {
@@ -52,6 +60,9 @@ func main() {
 	router.HandleFunc("/user", userHandlers.UserCreate).Methods(http.MethodPost)
 	router.HandleFunc("/user/password", userHandlers.UserPasswordEdit).Methods(http.MethodPost)
 	router.HandleFunc("/user/authorization", userHandlers.UserAuthorization).Methods(http.MethodPost)
+
+	// Swagger
+	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
 	err = http.ListenAndServe(fmt.Sprintf("%s:%s", cfg.Server.Host, cfg.Server.Port), router)
 	if err != nil {
