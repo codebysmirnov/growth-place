@@ -6,8 +6,8 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 
-	"growth-place/application/domain"
-	"growth-place/application/helpers/hashpassword"
+	"growth-place/src/domain"
+	"growth-place/src/helpers/hashpassword"
 )
 
 // AuthorizationView user auth response structure

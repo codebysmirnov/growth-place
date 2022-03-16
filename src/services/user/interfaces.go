@@ -3,7 +3,7 @@ package user
 import (
 	"github.com/google/uuid"
 
-	"growth-place/application/domain"
+	"growth-place/src/domain"
 )
 
 // IUserRepo presents handlers methods

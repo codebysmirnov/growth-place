@@ -65,7 +65,7 @@ paths:
   /user:
     post:
       consumes:
-      - application/json
+      - src/json
       description: create new user on system
       parameters:
       - description: User data
@@ -75,7 +75,7 @@ paths:
         schema:
           $ref: '#/definitions/handlers.UserCreateArgs'
       produces:
-      - application/json
+      - src/json
       responses:
         "201":
           description: Created
@@ -99,7 +99,7 @@ paths:
   /user/authorization:
     post:
       consumes:
-      - application/json
+      - src/json
       description: authorization user on system by email and password
       parameters:
       - description: User auth data
@@ -109,7 +109,7 @@ paths:
         schema:
           $ref: '#/definitions/handlers.UserAuthorizationArgs'
       produces:
-      - application/json
+      - src/json
       responses:
         "201":
           description: Created
@@ -133,7 +133,7 @@ paths:
   /user/password:
     post:
       consumes:
-      - application/json
+      - src/json
       description: 'edit user password: add new or replace old password'
       parameters:
       - description: New password
@@ -143,7 +143,7 @@ paths:
         schema:
           $ref: '#/definitions/handlers.UserPasswordEditArgs'
       produces:
-      - application/json
+      - src/json
       responses:
         "201":
           description: Created

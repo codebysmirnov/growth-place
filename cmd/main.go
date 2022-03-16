@@ -14,10 +14,10 @@ import (
 
 	_ "growth-place/docs"
 
-	"growth-place/application/handlers"
-	"growth-place/application/repository"
-	"growth-place/application/services/user"
 	"growth-place/config"
+	"growth-place/src/handlers"
+	"growth-place/src/repository"
+	"growth-place/src/services/user"
 )
 
 // @title Growth-place API

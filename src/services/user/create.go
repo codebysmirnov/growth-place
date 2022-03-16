@@ -1,7 +1,7 @@
 package user
 
 import (
-	"growth-place/application/domain"
+	"growth-place/src/domain"
 )
 
 // Create creates new user on system

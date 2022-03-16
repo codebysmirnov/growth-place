@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"growth-place/application/services/user"
 	"growth-place/libs/liberror"
+	"growth-place/src/services/user"
 )
 
 // UserAuthorizationArgs presents authorization arguments
@@ -52,7 +52,7 @@ func (h UserHandler) encodeUserAuthorizationResponse(
 	w http.ResponseWriter,
 	res interface{},
 ) error {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "src/json")
 	return json.NewEncoder(w).Encode(
 		UserAuthorizationResponse{
 			res.(user.AuthorizationView),

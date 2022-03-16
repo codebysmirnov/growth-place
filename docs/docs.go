@@ -23,10 +23,10 @@ const docTemplate = `{
             "post": {
                 "description": "create new user on system",
                 "consumes": [
-                    "application/json"
+                    "src/json"
                 ],
                 "produces": [
-                    "application/json"
+                    "src/json"
                 ],
                 "tags": [
                     "users"
@@ -75,10 +75,10 @@ const docTemplate = `{
             "post": {
                 "description": "authorization user on system by email and password",
                 "consumes": [
-                    "application/json"
+                    "src/json"
                 ],
                 "produces": [
-                    "application/json"
+                    "src/json"
                 ],
                 "tags": [
                     "users"
@@ -127,10 +127,10 @@ const docTemplate = `{
             "post": {
                 "description": "edit user password: add new or replace old password",
                 "consumes": [
-                    "application/json"
+                    "src/json"
                 ],
                 "produces": [
-                    "application/json"
+                    "src/json"
                 ],
                 "tags": [
                     "users"

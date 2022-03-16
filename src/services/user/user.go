@@ -3,7 +3,7 @@ package user
 import (
 	"github.com/rs/zerolog"
 
-	"growth-place/application/repository"
+	"growth-place/src/repository"
 )
 
 // UserService presents service for manage user data

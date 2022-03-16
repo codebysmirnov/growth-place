@@ -3,7 +3,7 @@ package user
 import (
 	"github.com/google/uuid"
 
-	"growth-place/application/helpers/hashpassword"
+	"growth-place/src/helpers/hashpassword"
 )
 
 // PasswordEdit edit user password

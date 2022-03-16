@@ -6,16 +6,18 @@ import (
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+
+	"growth-place/src/valueobjects"
 )
 
 // User presents user data instance
 type User struct {
-	ID       uuid.UUID `json:"id" gorm:"id"`                       // identifier
-	Login    string    `json:"login" gorm:"login"`                 // login
-	Name     *string   `json:"name" gorm:"name"`                   // name
-	Email    *string   `json:"email" gorm:"email"`                 // email
-	Phone    *string   `json:"phone" gorm:"phone"`                 // phone
-	Password *string   `json:"password,omitempty" gorm:"password"` // password
+	ID       uuid.UUID          `json:"id" gorm:"id"`                       // identifier
+	Login    string             `json:"login" gorm:"login"`                 // login
+	Name     *string            `json:"name" gorm:"name"`                   // name
+	Email    valueobjects.Email `json:"email" gorm:"email"`                 // email
+	Phone    *string            `json:"phone" gorm:"phone"`                 // phone
+	Password *string            `json:"password,omitempty" gorm:"password"` // password
 
 	CreatedAt time.Time      `json:"created_at" gorm:"created_at"` // datetime of user create on system
 	UpdatedAt time.Time      `json:"updated_at" gorm:"created_at"` // datetime of user data modify
@@ -37,14 +39,22 @@ func NewUser(
 	if name != nil && *name == "" {
 		return User{}, ErrUserEmptyName
 	}
-	if email != nil && *email == "" {
-		return User{}, ErrUserEmptyEmail
+
+	var (
+		e   valueobjects.Email
+		err error
+	)
+	if email != nil {
+		e, err = valueobjects.NewEmail(*email)
+		if err != nil {
+			return User{}, err
+		}
 	}
 	return User{
 		ID:       uuid.New(),
 		Login:    login,
 		Name:     name,
-		Email:    email,
+		Email:    e,
 		Phone:    phone,
 		Password: password,
 	}, nil

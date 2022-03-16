@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/google/uuid"
 
-	"growth-place/application/services/user"
+	"growth-place/src/services/user"
 )
 
 // IUserService presents user services methods

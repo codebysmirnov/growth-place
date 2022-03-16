@@ -7,7 +7,7 @@ import (
 	"github.com/jackc/pgconn"
 	"gorm.io/gorm"
 
-	"growth-place/application/domain"
+	"growth-place/src/domain"
 )
 
 // UserRepo presents domain.User db instance
