@@ -56,10 +56,11 @@ func main() {
 	userHandlers := handlers.NewUserHandlers(userService)
 
 	router := mux.NewRouter()
+	v1 := router.PathPrefix("/v1/").Subrouter()
 
-	router.HandleFunc("/user", userHandlers.UserCreate).Methods(http.MethodPost)
-	router.HandleFunc("/user/password", userHandlers.UserPasswordEdit).Methods(http.MethodPost)
-	router.HandleFunc("/user/authorization", userHandlers.UserAuthorization).Methods(http.MethodPost)
+	v1.HandleFunc("/user", userHandlers.UserCreate).Methods(http.MethodPost)
+	v1.HandleFunc("/user/password", userHandlers.UserPasswordEdit).Methods(http.MethodPost)
+	v1.HandleFunc("/user/authorization", userHandlers.UserAuthorization).Methods(http.MethodPost)
 
 	// Swagger
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
