@@ -9,10 +9,12 @@ import (
 
 // UserCreateArgs presents user create request arguments
 type UserCreateArgs struct {
-	Login string  `json:"login" example:"somelogin"`      // login
-	Name  *string `json:"name" example:"somename"`        // name
-	Email *string `json:"email" example:"some@mail.com"`  // email
-	Phone *string `json:"phone" example:"88009998889999"` // phone
+	Login    string  `json:"login" example:"somelogin"`      // login
+	Name     *string `json:"name" example:"somename"`        // name
+	Email    *string `json:"email" example:"some@mail.com"`  // email
+	Phone    *string `json:"phone" example:"88009998889999"` // phone
+	Password string  `json:"password" example:"secret-word"` // password
+
 }
 
 // UserCreate handle user create request
@@ -34,7 +36,7 @@ func (h UserHandler) UserCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := h.userService.Create(args.Login, args.Name, args.Email, args.Phone)
+	err := h.userService.Create(args.Login, args.Name, args.Email, args.Phone, args.Password)
 	if err != nil {
 		liberror.JSONError(w, err)
 		return

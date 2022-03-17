@@ -8,7 +8,7 @@ import (
 
 // IUserService presents user services methods
 type IUserService interface {
-	Create(login string, name, email, phone *string) error
 	Authorization(email, password string) (user.AuthorizationView, error)
+	Create(login string, name, email *string, phone *string, password string) error
 	PasswordEdit(id uuid.UUID, password string) error
 }

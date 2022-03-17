@@ -12,12 +12,12 @@ import (
 
 // User presents user data instance
 type User struct {
-	ID       uuid.UUID          `json:"id" gorm:"id"`                       // identifier
-	Login    string             `json:"login" gorm:"login"`                 // login
-	Name     *string            `json:"name" gorm:"name"`                   // name
-	Email    valueobjects.Email `json:"email" gorm:"email"`                 // email
-	Phone    *string            `json:"phone" gorm:"phone"`                 // phone
-	Password *string            `json:"password,omitempty" gorm:"password"` // password
+	ID       uuid.UUID             `json:"id" gorm:"id"`       // identifier
+	Login    string                `json:"login" gorm:"login"` // login
+	Name     *string               `json:"name" gorm:"name"`   // name
+	Email    valueobjects.Email    `json:"email" gorm:"email"` // email
+	Phone    *string               `json:"phone" gorm:"phone"` // phone
+	Password valueobjects.Password `json:"-" gorm:"password"`  // password
 
 	CreatedAt time.Time      `json:"created_at" gorm:"created_at"` // datetime of user create on system
 	UpdatedAt time.Time      `json:"updated_at" gorm:"created_at"` // datetime of user data modify
@@ -30,7 +30,7 @@ func NewUser(
 	name *string,
 	email *string,
 	phone *string,
-	password *string,
+	password string,
 ) (User, error) {
 	login = strings.TrimSpace(login)
 	if login == "" {
@@ -50,12 +50,16 @@ func NewUser(
 			return User{}, err
 		}
 	}
+	p, err := valueobjects.NewPassword(password)
+	if err != nil {
+		return User{}, err
+	}
 	return User{
 		ID:       uuid.New(),
 		Login:    login,
 		Name:     name,
 		Email:    e,
 		Phone:    phone,
-		Password: password,
+		Password: p,
 	}, nil
 }
