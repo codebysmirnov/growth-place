@@ -13,4 +13,5 @@ type IUserService interface {
 	Authorization(email, password string) (user.AuthorizationView, error)
 	Create(login string, name, email *string, phone *string, password string) (user.CreateView, error)
 	PasswordEdit(ctx context.Context, id uuid.UUID, password string) error
+	Profile(ctx context.Context, id uuid.UUID) (user.ProfileView, error)
 }

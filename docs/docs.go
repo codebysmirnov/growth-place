@@ -27,6 +27,54 @@ var doc = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/user": {
+            "get": {
+                "description": "returns user personal data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get profile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ProfileResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/liberror.Error"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "create new user on system",
                 "consumes": [
@@ -186,6 +234,36 @@ var doc = `{
     "definitions": {
         "handlers.NoContentResponse": {
             "type": "object"
+        },
+        "handlers.ProfileResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "description": "user create datetime",
+                    "type": "string",
+                    "example": "0001-01-01T00:00:00Z"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string",
+                    "example": "some@mail.com"
+                },
+                "login": {
+                    "description": "login",
+                    "type": "string",
+                    "example": "some-login"
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string",
+                    "example": "some-name"
+                },
+                "phone": {
+                    "description": "phone",
+                    "type": "string",
+                    "example": "88009998889988"
+                }
+            }
         },
         "handlers.UserAuthorizationArgs": {
             "type": "object",

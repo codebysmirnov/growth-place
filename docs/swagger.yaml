@@ -2,6 +2,29 @@ basePath: /
 definitions:
   handlers.NoContentResponse:
     type: object
+  handlers.ProfileResponse:
+    properties:
+      created_at:
+        description: user create datetime
+        example: "0001-01-01T00:00:00Z"
+        type: string
+      email:
+        description: email
+        example: some@mail.com
+        type: string
+      login:
+        description: login
+        example: some-login
+        type: string
+      name:
+        description: name
+        example: some-name
+        type: string
+      phone:
+        description: phone
+        example: "88009998889988"
+        type: string
+    type: object
   handlers.UserAuthorizationArgs:
     properties:
       login:
@@ -72,6 +95,38 @@ info:
   version: "1.0"
 paths:
   /user:
+    get:
+      consumes:
+      - application/json
+      description: returns user personal data
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.ProfileResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/liberror.Error'
+      summary: get profile
+      tags:
+      - users
     post:
       consumes:
       - application/json
