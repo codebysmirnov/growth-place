@@ -51,7 +51,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	logger := zerolog.New(os.Stderr).With().Timestamp().Logger()
+	logger := zerolog.New(os.Stderr).With().Timestamp().Caller().Logger()
 	userRepo := repository.NewUserRepo(db)
 	userService := user.NewUserService(userRepo, logger, cfg.JWT.Secret)
 	userHandlers := handlers.NewUserHandlers(userService)
