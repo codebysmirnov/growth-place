@@ -1,8 +1,6 @@
 package user
 
 import (
-	"time"
-
 	"github.com/dgrijalva/jwt-go"
 
 	"growth-place/src/domain"
@@ -33,13 +31,7 @@ func (s UserService) Authorization(login, password string) (AuthorizationView, e
 		return AuthorizationView{}, err
 	}
 
-	expirationTime := time.Now().Add(24 * time.Hour).Unix()
-	claims := &domain.Claims{
-		ID: user.ID,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expirationTime,
-		},
-	}
+	claims := domain.NewClaims(user.ID)
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(s.jwtKey))
@@ -50,6 +42,6 @@ func (s UserService) Authorization(login, password string) (AuthorizationView, e
 
 	return AuthorizationView{
 		Token:     tokenString,
-		ExpiredAt: expirationTime,
+		ExpiredAt: claims.ExpiresAt,
 	}, nil
 }
