@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 
-	"growth-place/src/valueobjects"
+	"growth-place/src/domain/valueobjects"
 )
 
 // User presents user data instance

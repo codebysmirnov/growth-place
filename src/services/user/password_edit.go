@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"growth-place/src/valueobjects"
+	"growth-place/src/domain/valueobjects"
 )
 
 // PasswordEdit edit user password
