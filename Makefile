@@ -25,5 +25,9 @@ migrate-up: ## up all migrates on db
 migrate-down: ## back on one migrate step on db
 	sql-migrate down
 
+.PHONY: docs
+docs: ## generate swagger documentation
+	swag init -g cmd/main.go
+
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[95m%-30s\033[0m %s\n", $$1, $$2}'
