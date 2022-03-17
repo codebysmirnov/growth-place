@@ -9,12 +9,11 @@ import (
 
 // UserCreateArgs presents user create request arguments
 type UserCreateArgs struct {
-	Login    string  `json:"login" example:"somelogin"`      // login
-	Name     *string `json:"name" example:"somename"`        // name
-	Email    *string `json:"email" example:"some@mail.com"`  // email
-	Phone    *string `json:"phone" example:"88009998889999"` // phone
-	Password string  `json:"password" example:"secret-word"` // password
-
+	Login    string  `json:"login" example:"somelogin"`                                      // login
+	Name     *string `json:"name" example:"some name"`                                       // name
+	Email    *string `json:"email" example:"some@mail.com" minLength:"5" maxLength:"32"`     // email
+	Phone    *string `json:"phone" example:"88009998889999"`                                 // phone
+	Password string  `json:"password" example:"secret-word"  minLength:"7" maxLength:"1024"` // password
 }
 
 // UserCreate handle user create request

@@ -26,7 +26,13 @@ definitions:
     properties:
       email:
         description: email
-        example: some@email.com
+        example: some@mail.com
+        maxLength: 32
+        minLength: 5
+        type: string
+      login:
+        description: login
+        example: somelogin
         type: string
       name:
         description: name
@@ -35,10 +41,12 @@ definitions:
       password:
         description: password
         example: secret-word
+        maxLength: 1024
+        minLength: 7
         type: string
       phone:
         description: phone
-        example: "88009009999999"
+        example: "88009998889999"
         type: string
     type: object
   handlers.UserPasswordEditArgs:

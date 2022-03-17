@@ -222,7 +222,14 @@ var doc = `{
                 "email": {
                     "description": "email",
                     "type": "string",
-                    "example": "some@email.com"
+                    "maxLength": 32,
+                    "minLength": 5,
+                    "example": "some@mail.com"
+                },
+                "login": {
+                    "description": "login",
+                    "type": "string",
+                    "example": "somelogin"
                 },
                 "name": {
                     "description": "name",
@@ -232,12 +239,14 @@ var doc = `{
                 "password": {
                     "description": "password",
                     "type": "string",
+                    "maxLength": 1024,
+                    "minLength": 7,
                     "example": "secret-word"
                 },
                 "phone": {
                     "description": "phone",
                     "type": "string",
-                    "example": "88009009999999"
+                    "example": "88009998889999"
                 }
             }
         },
