@@ -1,13 +1,19 @@
 package user
 
 import (
+	"context"
+
 	"github.com/google/uuid"
 
 	"growth-place/src/valueobjects"
 )
 
 // PasswordEdit edit user password
-func (s UserService) PasswordEdit(id uuid.UUID, password string) error {
+func (s UserService) PasswordEdit(
+	_ context.Context,
+	id uuid.UUID,
+	password string,
+) error {
 	logger := s.logger.With().Str("Method", "PasswordEdit").Logger()
 	user, err := s.userRepo.Read(id)
 	if err != nil {

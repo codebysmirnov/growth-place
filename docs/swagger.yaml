@@ -51,10 +51,6 @@ definitions:
     type: object
   handlers.UserPasswordEditArgs:
     properties:
-      id:
-        description: user identifier
-        example: 8cef2e64-fe20-4259-8295-cb907f43cc0a
-        type: string
       password:
         description: new password
         example: some_password

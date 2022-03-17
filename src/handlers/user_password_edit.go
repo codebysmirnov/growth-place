@@ -4,15 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/google/uuid"
-
 	"growth-place/libs/liberror"
+	"growth-place/middlewares"
 )
 
 // UserPasswordEditArgs presents user password edit request arguments
 type UserPasswordEditArgs struct {
-	ID       uuid.UUID `json:"id" example:"8cef2e64-fe20-4259-8295-cb907f43cc0a"` // user identifier
-	Password string    `json:"password" example:"some_password"`                  // new password
+	Password string `json:"password" example:"some_password"` // new password
 }
 
 // UserPasswordEdit user password edit method
@@ -33,8 +31,9 @@ func (h UserHandler) UserPasswordEdit(w http.ResponseWriter, r *http.Request) {
 		liberror.JSONError(w, ErrUnmarshal)
 		return
 	}
-
-	err := h.userService.PasswordEdit(args.ID, args.Password)
+	ctx := r.Context()
+	token := middlewares.MustUserID(ctx)
+	err := h.userService.PasswordEdit(ctx, token, args.Password)
 	if err != nil {
 		liberror.JSONError(w, err)
 		return

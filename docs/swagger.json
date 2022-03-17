@@ -237,11 +237,6 @@
         "handlers.UserPasswordEditArgs": {
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "user identifier",
-                    "type": "string",
-                    "example": "8cef2e64-fe20-4259-8295-cb907f43cc0a"
-                },
                 "password": {
                     "description": "new password",
                     "type": "string",
