@@ -3,7 +3,7 @@ package user
 import (
 	"github.com/google/uuid"
 
-	"growth-place/src/helpers/hashpassword"
+	"growth-place/src/valueobjects"
 )
 
 // PasswordEdit edit user password
@@ -14,12 +14,12 @@ func (s UserService) PasswordEdit(id uuid.UUID, password string) error {
 		logger.Error().Err(err).Msg("error on s.userRepo.Read()")
 		return err
 	}
-	hashedPassword, err := hashpassword.GenerateHashFromPassword(password)
+	pass, err := valueobjects.NewPassword(password)
 	if err != nil {
 		logger.Error().Err(err).Msg("helpers.HashPassword()")
 		return err
 	}
-	user.Password = &hashedPassword
+	user.Password = pass
 	err = s.userRepo.Update(user)
 	if err != nil {
 		logger.Error().Err(err).Msg("s.userRepo.Update()")

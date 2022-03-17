@@ -1,13 +1,11 @@
 package user
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 
 	"growth-place/src/domain"
-	"growth-place/src/helpers/hashpassword"
 )
 
 // AuthorizationView user auth response structure
@@ -29,14 +27,10 @@ func (s UserService) Authorization(email, password string) (AuthorizationView, e
 		return AuthorizationView{}, err
 	}
 
-	ok, err := hashpassword.ComparePasswordAndHash(password, *user.Password)
+	err = user.Password.Compare(password)
 	if err != nil {
 		logger.Error().Err(err).Msg("error on hashpassword.ComparePasswordAndHash()")
 		return AuthorizationView{}, err
-	}
-	if !ok {
-		logger.Error().Msg(fmt.Sprintf("wrong password (user ID:%s)", user.ID))
-		return AuthorizationView{}, ErrWrongPassword
 	}
 
 	expirationTime := time.Now().Add(24 * time.Hour).Unix()
