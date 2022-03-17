@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"growth-place/libs/liberror"
+	"growth-place/src/services/user"
 )
 
 // UserCreateArgs presents user create request arguments
@@ -35,13 +36,13 @@ func (h UserHandler) UserCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := h.userService.Create(args.Login, args.Name, args.Email, args.Phone, args.Password)
+	res, err := h.userService.Create(args.Login, args.Name, args.Email, args.Phone, args.Password)
 	if err != nil {
 		liberror.JSONError(w, err)
 		return
 	}
 
-	err = h.encodeUserCreateResponse(w)
+	err = h.encodeUserCreateResponse(w, res)
 	if err != nil {
 		liberror.JSONError(w, err)
 		return
@@ -50,10 +51,22 @@ func (h UserHandler) UserCreate(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// encodeUserCreateResponse encode user create response to NoContentResponse
+// encodeUserCreateResponse encode user create response to UserCreateResponse
 func (h UserHandler) encodeUserCreateResponse(
 	w http.ResponseWriter,
+	r interface{},
 ) error {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusCreated)
-	return json.NewEncoder(w).Encode(NoContentResponse{})
+
+	return json.NewEncoder(w).Encode(
+		UserCreateResponse{
+			r.(user.CreateView),
+		},
+	)
+}
+
+// UserCreateResponse user create response data
+type UserCreateResponse struct {
+	user.CreateView
 }
