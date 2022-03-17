@@ -191,10 +191,10 @@ var doc = `{
         "handlers.UserAuthorizationArgs": {
             "type": "object",
             "properties": {
-                "email": {
-                    "description": "email",
+                "login": {
+                    "description": "login",
                     "type": "string",
-                    "example": "some@mail.com"
+                    "example": "some login"
                 },
                 "password": {
                     "description": "password",

@@ -10,7 +10,7 @@ import (
 
 // UserAuthorizationArgs presents authorization arguments
 type UserAuthorizationArgs struct {
-	Email    string `json:"email" example:"some@mail.com"`    // email
+	Login    string `json:"login" example:"some login"`       // login
 	Password string `json:"password" example:"some_password"` // password
 }
 
@@ -33,7 +33,7 @@ func (h UserHandler) UserAuthorization(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := h.userService.Authorization(args.Email, args.Password)
+	res, err := h.userService.Authorization(args.Login, args.Password)
 	if err != nil {
 		liberror.JSONError(w, err)
 		return

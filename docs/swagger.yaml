@@ -4,9 +4,9 @@ definitions:
     type: object
   handlers.UserAuthorizationArgs:
     properties:
-      email:
-        description: email
-        example: some@mail.com
+      login:
+        description: login
+        example: some login
         type: string
       password:
         description: password

@@ -15,15 +15,15 @@ type AuthorizationView struct {
 }
 
 // Authorization authorize user and makes user token
-func (s UserService) Authorization(email, password string) (AuthorizationView, error) {
+func (s UserService) Authorization(login, password string) (AuthorizationView, error) {
 	logger := s.logger.With().
-		Str("Method", "Authorozation (User)").
-		Str("email", email).
+		Str("Method", "Authorization (User)").
+		Str("login", login).
 		Logger()
 
-	user, err := s.userRepo.ReadByMail(email)
+	user, err := s.userRepo.ReadByLogin(login)
 	if err != nil {
-		logger.Error().Err(err).Msg("error on s.userRepo.ReadByMail()")
+		logger.Error().Err(err).Msg("error on s.userRepo.ReadByLogin()")
 		return AuthorizationView{}, err
 	}
 

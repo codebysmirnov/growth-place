@@ -51,10 +51,10 @@ func (r UserRepo) Read(id uuid.UUID) (domain.User, error) {
 	return user, nil
 }
 
-// ReadByMail get user by passed email
-func (r UserRepo) ReadByMail(email string) (domain.User, error) {
+// ReadByLogin get user by passed login
+func (r UserRepo) ReadByLogin(login string) (domain.User, error) {
 	var user domain.User
-	err := r.db.Model(user).Where("email=?", email).Take(&user).Error
+	err := r.db.Model(user).Where("login=?", login).Take(&user).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return domain.User{}, ErrUserNotFound
