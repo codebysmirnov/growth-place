@@ -95,6 +95,38 @@ info:
   version: "1.0"
 paths:
   /user:
+    delete:
+      consumes:
+      - application/json
+      description: mark user as deleted
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.NoContentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/liberror.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/liberror.Error'
+      summary: delete user
+      tags:
+      - users
     get:
       consumes:
       - application/json

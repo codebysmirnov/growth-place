@@ -9,6 +9,7 @@ import (
 // IUserRepo presents handlers methods
 type IUserRepo interface {
 	Create(user domain.User) error
+	Delete(id uuid.UUID) error
 	Update(user domain.User) error
 	Read(id uuid.UUID) (domain.User, error)
 	ReadByLogin(login string) (domain.User, error)

@@ -75,3 +75,15 @@ func (r UserRepo) Update(user domain.User) error {
 	}
 	return nil
 }
+
+// Delete mark user as deleted
+func (r UserRepo) Delete(id uuid.UUID) error {
+	err := r.db.Where("id=?", id).Delete(&domain.User{}).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return ErrUserNotFound
+		}
+		return err
+	}
+	return nil
+}

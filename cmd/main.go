@@ -65,6 +65,7 @@ func main() {
 	authMiddleware := middlewares.NewAuthorization(cfg.JWT.Secret, logger)
 	v1Auth.Use(authMiddleware)
 	v1Auth.HandleFunc("/user", userHandlers.Profile).Methods(http.MethodGet)
+	v1Auth.HandleFunc("/user", userHandlers.Delete).Methods(http.MethodDelete)
 	v1Auth.HandleFunc("/user/password", userHandlers.UserPasswordEdit).Methods(http.MethodPost)
 
 	// Swagger
