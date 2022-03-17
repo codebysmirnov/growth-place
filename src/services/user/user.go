@@ -8,7 +8,7 @@ import (
 
 // UserService presents service for manage user data
 type UserService struct {
-	userRepo repository.UserRepo
+	userRepo IUserRepo
 	logger   zerolog.Logger
 	jwtKey   string
 }
