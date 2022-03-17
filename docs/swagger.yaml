@@ -32,8 +32,13 @@ definitions:
         description: name
         example: some name
         type: string
+      password:
+        description: password
+        example: secret-word
+        type: string
       phone:
         description: phone
+        example: "88009009999999"
         type: string
     type: object
   handlers.UserPasswordEditArgs:
@@ -65,7 +70,7 @@ paths:
   /user:
     post:
       consumes:
-      - src/json
+      - application/json
       description: create new user on system
       parameters:
       - description: User data
@@ -75,7 +80,7 @@ paths:
         schema:
           $ref: '#/definitions/handlers.UserCreateArgs'
       produces:
-      - src/json
+      - application/json
       responses:
         "201":
           description: Created
@@ -99,7 +104,7 @@ paths:
   /user/authorization:
     post:
       consumes:
-      - src/json
+      - application/json
       description: authorization user on system by email and password
       parameters:
       - description: User auth data
@@ -109,7 +114,7 @@ paths:
         schema:
           $ref: '#/definitions/handlers.UserAuthorizationArgs'
       produces:
-      - src/json
+      - application/json
       responses:
         "201":
           description: Created
@@ -133,7 +138,7 @@ paths:
   /user/password:
     post:
       consumes:
-      - src/json
+      - application/json
       description: 'edit user password: add new or replace old password'
       parameters:
       - description: New password
@@ -143,7 +148,7 @@ paths:
         schema:
           $ref: '#/definitions/handlers.UserPasswordEditArgs'
       produces:
-      - src/json
+      - application/json
       responses:
         "201":
           description: Created

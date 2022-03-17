@@ -213,9 +213,15 @@
                     "type": "string",
                     "example": "some name"
                 },
+                "password": {
+                    "description": "password",
+                    "type": "string",
+                    "example": "secret-word"
+                },
                 "phone": {
                     "description": "phone",
-                    "type": "string"
+                    "type": "string",
+                    "example": "88009009999999"
                 }
             }
         },
