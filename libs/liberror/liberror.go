@@ -19,10 +19,10 @@ func (e Error) Error() string {
 
 // JSONError make error on json format
 func JSONError(w http.ResponseWriter, err error) {
-	w.Header().Set("Content-Type", "src/json; charset=utf-8")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	e, ok := err.(*Error)
 	if ok {
 		w.WriteHeader(e.HTTPCode)
 	}
-	json.NewEncoder(w).Encode(err)
+	_ = json.NewEncoder(w).Encode(err)
 }

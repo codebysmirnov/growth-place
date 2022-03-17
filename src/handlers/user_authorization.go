@@ -52,7 +52,7 @@ func (h UserHandler) encodeUserAuthorizationResponse(
 	w http.ResponseWriter,
 	res interface{},
 ) error {
-	w.Header().Set("Content-Type", "src/json")
+	w.Header().Set("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(
 		UserAuthorizationResponse{
 			res.(user.AuthorizationView),
