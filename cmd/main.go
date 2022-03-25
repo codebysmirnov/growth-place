@@ -56,11 +56,13 @@ func main() {
 	userService := user.NewUserService(userRepo, logger, cfg.JWT.Secret)
 	userHandlers := handlers.NewUserHandlers(userService)
 
+	// without authorization
 	router := mux.NewRouter()
 	v1 := router.PathPrefix("/v1/").Subrouter()
 	v1.HandleFunc("/user", userHandlers.UserCreate).Methods(http.MethodPost)
 	v1.HandleFunc("/user/authorization", userHandlers.UserAuthorization).Methods(http.MethodPost)
 
+	// authorized routes
 	v1Auth := router.PathPrefix("/v1/").Subrouter()
 	authMiddleware := middlewares.NewAuthorization(cfg.JWT.Secret, logger)
 	v1Auth.Use(authMiddleware)
