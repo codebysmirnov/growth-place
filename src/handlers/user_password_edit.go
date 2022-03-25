@@ -8,25 +8,25 @@ import (
 	"growth-place/middlewares"
 )
 
-// UserPasswordEditArgs presents user password edit request arguments
-type UserPasswordEditArgs struct {
+// PasswordEditArgs presents user password edit request arguments
+type PasswordEditArgs struct {
 	Password string `json:"password" example:"some_password"` // new password
 }
 
-// UserPasswordEdit user password edit method
+// PasswordEdit user password edit method
 // @Summary edit password
 // @Description edit user password: add new or replace old password
 // @Tags users
 // @Accept  json
 // @Produce  json
-// @Param password body UserPasswordEditArgs true "New password"
+// @Param password body PasswordEditArgs true "New password"
 // @Success 201 {object} NoContentResponse
 // @Failure 400 {object} liberror.Error
 // @Failure 404 {object} liberror.Error
 // @Failure 500 {object} liberror.Error
 // @Router /user/password [POST]
-func (h UserHandler) UserPasswordEdit(w http.ResponseWriter, r *http.Request) {
-	var args UserPasswordEditArgs
+func (h UserHandler) PasswordEdit(w http.ResponseWriter, r *http.Request) {
+	var args PasswordEditArgs
 	if err := json.NewDecoder(r.Body).Decode(&args); err != nil {
 		liberror.JSONError(w, ErrUnmarshal)
 		return

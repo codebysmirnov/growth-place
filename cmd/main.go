@@ -66,7 +66,7 @@ func main() {
 	v1Auth.Use(authMiddleware)
 	v1Auth.HandleFunc("/user", userHandlers.Profile).Methods(http.MethodGet)
 	v1Auth.HandleFunc("/user", userHandlers.Delete).Methods(http.MethodDelete)
-	v1Auth.HandleFunc("/user/password", userHandlers.UserPasswordEdit).Methods(http.MethodPost)
+	v1Auth.HandleFunc("/user/password", userHandlers.PasswordEdit).Methods(http.MethodPost)
 
 	// Swagger
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
